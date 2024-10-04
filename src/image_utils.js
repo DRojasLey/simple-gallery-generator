@@ -21,15 +21,13 @@ const getImagesFromFolder = (folderPath) => {
 
 };
 
+
+
 // Placeholder for the gallery generation function
 const generateGalleryFiles = () => {
     // This function will handle HTML, CSS, and JS generation
     console.log('Gallery files generated!');
   };
-
-
-
-
 
 
 

@@ -3,11 +3,11 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 10px;
   }
-  
+
   .thumbnail {
     cursor: pointer;
   }
-  
+
   .modal {
     display: none;
     position: fixed;
@@ -17,7 +17,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
   }
-  
+
   .modal img {
     max-width: 90%;
     max-height: 90%;
@@ -28,4 +28,3 @@
     left: 0;
     right: 0;
   }
-  
