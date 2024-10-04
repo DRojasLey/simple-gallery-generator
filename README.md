@@ -1,8 +1,8 @@
-# Image Gallery Generator v0.2.0
+# Image Gallery Generator v0.2.1
 
 A JavaScript package to create a basic image gallery from a given folder
 
-### Installation
+## Installation
 
 ```Bash
 
@@ -17,9 +17,9 @@ npm install simple-gallery-gen
 * [path](https://nodejs.org/api/path.html)
 * [sharp](https://sharp.pixelplumbing.com/)
 
-### Usage (Usage is still pending):
+## Usage (Usage is still pending):
 
-#### Initial Setup:
+### Initial Setup:
 
 ```Bash
 
@@ -34,7 +34,7 @@ This will:
 1. Create a list of the images in the given image-folder
 1. Create the gallery/images folder, copying only the jpg, png and bmp images from the given image-folder
 
-#### Generate Gallery:
+### Generate Gallery:
 
 ```Bash
 
@@ -46,7 +46,7 @@ This will:
 1. Create thumbnails for each image, updating the imageIndex.json file
 1. Update the index.js file with the required logic
 
-#### Update Gallery:
+### Update Gallery:
 
 ```bash
 
@@ -57,11 +57,11 @@ simple-gallery-gen update
 This will scan the specified image folder and update any changes if there is an already generated gallery
 
 
-### Utilities:
+## Utilities:
 
 >(internally used by the usage section features)
 
-#### Generate list of images
+### Generate list of images
 
 ```bash
 
@@ -83,7 +83,7 @@ Example:
 ```
 
 
-#### Generate Thumbnails for the listed images
+### Generate Thumbnails for the listed images
 
 
 ```bash
@@ -98,9 +98,9 @@ Takes:
 * `-w <number>` or `--width <number>`
 * `-h <number>` or `--height <number>`
 For the desired width and height of the thumbnails in px (do not include the px just the number (int))
-(it is recommended to use near/directly square values)
+(it is recommended to use near/directly box values)
 
-### Features
+## Features
 * Image Filtering: Filters only JPG, PNG and BMP images.
 * HTML Structure: Creates a basic HTML structure for the gallery.
 * CSS Styling: Provides basic CSS styles for the gallery.
@@ -110,7 +110,7 @@ For the desired width and height of the thumbnails in px (do not include the px 
     * Generates HTML elements for each thumbnail.
     * Displays the original image in a modal when a thumbnail is clicked.
 
-### Project Structure
+## Project Structure
 
 ```
 image-gallery-generator/
@@ -131,11 +131,26 @@ image-gallery-generator/
         └── thumbs/
 
 ```
+## Changelog
 
-### Contributing
+### v0.1.0:
+* Project init
+* Image folder list feature added
+
+### v0.2.0:
+* Create Thumbnails feature added
+* Semver introduced
+* Documentation improvements
+* Image Folder List now accepts folder path as argument
+
+##### v0.2.1:
+* Documentation improvements
+* Changelog introduced
+
+## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests or issues.
 
-### License
+## License
 
 This project is licensed under the MIT License.# simple-gallery-generator
