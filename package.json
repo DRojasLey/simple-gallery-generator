@@ -1,11 +1,12 @@
 {
   "name": "simple-gallery-gen",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Create simple HTML galleries generated from images in a folder, supporting jpg, png and bmp formats.",
   "main": "main.js",
   "scripts": {
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
-    "createImageList": "node src/cli.js lsimages gallery/images && mv imageIndex.json gallery/imageIndex.json"
+    "createImageList": "node src/cli.js lsimages",
+    "createThumbnails": "node src/cli.js thumbcreate imageIndex.json"
   },
   "keywords": [
     "gallery",
@@ -20,6 +21,7 @@
   "author": "dfrley",
   "license": "MIT",
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.14.2",
     "commander": "^12.1.0",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
