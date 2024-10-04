@@ -1,0 +1,5 @@
+# Ignore the images folder inside the gallery folder
+gallery/images/
+
+# Ignore the imageIndex.json file inside the gallery folder
+gallery/imageIndex.json
