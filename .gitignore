@@ -3,3 +3,6 @@ gallery/images/
 
 # Ignore the imageIndex.json file inside the gallery folder
 gallery/imageIndex.json
+
+# Ignore itself (if you choose to)
+.gitignore
