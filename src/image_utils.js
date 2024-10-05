@@ -5,9 +5,9 @@ const sharp = require('sharp');
 
 
 /**
- * create a list of all the images type files in the given directory
- * @param {string} folderPath folder containing the images
- */
+* create a list of all the images type files in the given directory
+* @param {string} folderPath folder containing the images
+*/
 const getImagesFromFolder = (folderPath) => {
 
     readdir(folderPath, (err, files)=>{
@@ -30,17 +30,17 @@ const getImagesFromFolder = (folderPath) => {
 
 };
 /**
- * create thumbnails for all the images in the given lists
- * @param {string} imageListFile path to the file that lists all image files
- */
+* create thumbnails for all the images in the given lists
+* @param {string} imageListFile path to the file that lists all image files
+*/
 const createThumbnails = (imageListFile, width, height) => {
     let images;
 
     /**
-     *
-     * @param {string} imgListFile path to the file that lists all image files
-     * @returns array of names of all the image files
-     */
+    *
+    * @param {string} imgListFile path to the file that lists all image files
+    * @returns array of names of all the image files
+    */
     const readImageFile = (imgListFile) =>{
         const data = readFileSync(imgListFile, 'utf8');
         try{
@@ -53,42 +53,51 @@ const createThumbnails = (imageListFile, width, height) => {
     }
 
     images = readImageFile(imageListFile)
+    const imageLibrary = {};
 
     /**
-     * create a thumbnail image from each listed image
-     * @param {Array} imageArray extracted from the image list
-     */
+    * create a thumbnail image from each listed image & add the imageLibrary.json file
+    * @param {Array} imageArray extracted from the image list
+    */
     const createThumbnailimages = async (imageArray, width, height) => {
         for (const image of imageArray) {
             const fileExtension = extname(image).toLowerCase();
             const fileName = basename(image, fileExtension);
+            const thumbnailPath = `gallery/images/thumbs/thumb_${fileName}${fileExtension}`;
             try {
                 await sharp(image)
-                    .resize(width, height, {
-                        kernel: sharp.kernel.nearest,
-                        fit: 'contain',
-                        position: 'centre',
-                        background: { r: 0, g: 0, b: 0 }
-                    })
-                    .toFile(`gallery/images/thumbs/thumb_${fileName}.${fileExtension}`); // Save to a specific folder
+                .resize(width, height, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'centre',
+                    background: { r: 0, g: 0, b: 0 }
+                })
+                .toFile(`gallery/images/thumbs/thumb_${fileName}.${fileExtension}`); // Save to a specific folder
+
+                imageLibrary[thumbnailPath] = {
+                    originalImg: image
+                };
                 console.log(`Thumbnail created for: ${image}`);
+
             } catch (error) {
                 console.error(`Error creating thumbnail for ${image}:`, error);
             }
         }
+        writeFile('imageLibrary.json', JSON.stringify(imageLibrary, null, 2), (err) => {
+            if (err) throw err;
+            console.log('Thumbnails map saved to imageLibrary.json');
+        });
 
     }
 
     createThumbnailimages(images, width, height);
 };
 
-
-
 // Placeholder for the gallery generation function
 const generateGalleryFiles = () => {
     // This function will handle HTML, CSS, and JS generation
     console.log('Gallery files generated!');
-  };
+};
 
 
 module.exports = {

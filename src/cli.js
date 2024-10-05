@@ -22,14 +22,14 @@ program
 
 program
         .command('thumbcreate <filePath>')
-        .option('-w, --width <width>', 'Specify the thumbnail width', parseInt, 250)
-        .option('-h, --height <height>', 'Specify the thumbnail height', parseInt, 250)
+        .option('-w, --width <width>', 'Specify the thumbnail width', parseInt)
+        .option('-h, --height <height>', 'Specify the thumbnail height', parseInt)
         .action((filePath, options) => {
             const width = options.width;
             const height = options.height;
 
             if (!width || !height) {
-                console.error('Error: Width and height must be specified.');
+                console.error('Error: width and height must be specified.');
                 return;
             }
 

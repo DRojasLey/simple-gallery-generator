@@ -94,11 +94,13 @@ npm run createThumbnails -- -w 250 -h 250
 
 This will take the original list created from the folder files and generate a corresponding thumbnail for each image under the gallery/images folder ```gallery/images/thumbs```
 
+Will create the imageLibrary.json file.
+
 Takes:
 * `-w <number>` or `--width <number>`
 * `-h <number>` or `--height <number>`
-For the desired width and height of the thumbnails in px (do not include the px just the number (int))
-(it is recommended to use near/directly box values)
+For the desired width and height of the thumbnails in px (do not include the 'px' just the number (int))
+(it is recommended to use near/directly box values, or values that maintain the overall aspect ratio of the images)
 
 ## Features
 * Image Filtering: Filters only JPG, PNG and BMP images.
@@ -146,6 +148,11 @@ image-gallery-generator/
 ##### v0.2.1:
 * Documentation improvements
 * Changelog introduced
+
+##### v0.2.2:
+* Added imageLibrary.json file generation
+* Minor bugfixes
+* Clarified documentation
 
 ## Contributing
 
