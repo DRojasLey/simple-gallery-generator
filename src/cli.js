@@ -1,5 +1,5 @@
 const { Command } = require('commander');
-const { getImagesFromFolder, createThumbnails } = require('./image_utils.js');
+const { copyImagesFromFolder, listImagesFromFolder, createThumbnails } = require('./image_utils.js');
 
 
 const program = new Command();
@@ -10,13 +10,23 @@ program
         .version('0.1.0');
 
 program
+        .command('importImages')
+        .description('Copy all JPG, BMP, PNG files within the given folder to the gallery/images/ folder')
+        .option('-p, --path <folderPath>','Specify path of the folder to import images from')
+        .action((options) => {
+            const pathToFolder = options.path
+            console.log(`Importing images from folder: ${pathToFolder}`);
+            copyImagesFromFolder(pathToFolder);
+        });
+
+program
         .command('lsimages')
         .description('Create a file listing all JPG, BMP, PNG files within the given folder')
         .option('-p, --path <folderPath>','Specify path of the folder to list images from', 'gallery/images')
         .action((options) => {
             const pathToImageFolder = options.path
-            console.log(`Processing images from folder: ${pathToImageFolder}`);
-            getImagesFromFolder(pathToImageFolder);
+            console.log(`Listing images from folder: ${pathToImageFolder}`);
+            listImagesFromFolder(pathToImageFolder, false);
         });
 
 

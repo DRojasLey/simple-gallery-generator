@@ -61,6 +61,25 @@ This will scan the specified image folder and update any changes if there is an 
 
 >(internally used by the usage section features)
 
+### Copy Images To gallery/images folder (IN PROGRESS)
+
+```bash
+
+npm run importImages -- -p path/to/your/images/folder/
+
+```
+
+Given the original folder path:
+
+This will generate the list of images from the given folder
+Copy all the image files from the original folder to the gallery/images folder
+
+
+ Takes
+
+* `-p path/to/your/images/folder/` or  `--path path/to/your/images/folder/`
+
+
 ### Generate list of images
 
 ```bash
@@ -91,6 +110,8 @@ Example:
 npm run createThumbnails -- -w 250 -h 250
 
 ```
+
+[!] Important: width and height flags MUST be specified.
 
 This will take the original list created from the folder files and generate a corresponding thumbnail for each image under the gallery/images folder ```gallery/images/thumbs```
 

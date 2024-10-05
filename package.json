@@ -6,6 +6,7 @@
   "scripts": {
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
     "createImageList": "node src/cli.js lsimages",
+    "importImages": "node src/cli.js  importImages ",
     "createThumbnails": "node src/cli.js thumbcreate imageIndex.json"
   },
   "keywords": [

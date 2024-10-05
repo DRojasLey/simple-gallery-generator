@@ -1,5 +1,5 @@
-const { readdir, writeFile, readFileSync } = require('node:fs');
-const { extname, basename, join } = require('node:path');
+const { readdir, writeFile, readFileSync, existsSync, unlinkSync } = require('node:fs');
+const { extname, basename, join, resolve } = require('node:path');
 const sharp = require('sharp');
 
 
@@ -7,8 +7,9 @@ const sharp = require('sharp');
 /**
 * create a list of all the images type files in the given directory
 * @param {string} folderPath folder containing the images
+* @param {boolean} absoluteFlag true=absolute path listed false=relative path
 */
-const getImagesFromFolder = (folderPath) => {
+const listImagesFromFolder = (folderPath, absoluteFlag) => {
 
     readdir(folderPath, (err, files)=>{
         if (err) throw err;
@@ -18,7 +19,7 @@ const getImagesFromFolder = (folderPath) => {
             return fileExtension === '.jpg' || fileExtension === '.jpeg' || fileExtension === '.png' || fileExtension === '.bmp';
         });
 
-        const fullPathImages = onlyImageFiles.map(file => join(folderPath, file));
+        const fullPathImages = onlyImageFiles.map(file => !absoluteFlag ? join(folderPath, file): resolve(folderPath, file));
 
         const jsonData = JSON.stringify(fullPathImages, null, 2);
 
@@ -29,6 +30,47 @@ const getImagesFromFolder = (folderPath) => {
     });
 
 };
+
+/**
+ * Will delete an existing list of images
+ * @param {string} listName name of the list to delete
+ * @returns undefined
+ */
+const deleteExistingList = (listName) => {
+    const filePath = resolve(listName); // Resolve the path for safety (relative/absolute handling)
+    if (!existsSync(filePath)) {
+        console.log(`File ${listName} does not exist, nothing to delete.`);
+        return;
+    }
+    try {
+        unlinkSync(filePath);
+        console.log(`File ${listName} deleted successfully.`);
+    } catch (err) {
+        console.error(`Error deleting the file ${listName}:`, err);
+    }
+
+}
+
+
+const copyImagesFromFolder = (directoryPath) => {
+
+    try {
+        console.log(`Listing only images from folder: ${directoryPath}`);
+        listImagesFromFolder(directoryPath, true);
+        
+        /* This is to put the file deletion at the end of the execution queue
+         after all the images have been copied over to the target folder*/
+        setTimeout(()=>{
+            deleteExistingList('imageIndex.json');
+        }, 0)
+
+    } catch (error) {
+        console.log(`Your path was ${directoryPath} which is not a valid path`, error)
+    }
+
+}
+
+
 /**
 * create thumbnails for all the images in the given lists
 * @param {string} imageListFile path to the file that lists all image files
@@ -72,7 +114,7 @@ const createThumbnails = (imageListFile, width, height) => {
                     position: 'centre',
                     background: { r: 0, g: 0, b: 0 }
                 })
-                .toFile(`gallery/images/thumbs/thumb_${fileName}.${fileExtension}`); // Save to a specific folder
+                .toFile(`gallery/images/thumbs/thumb_${fileName}.${fileExtension}`);
 
                 imageLibrary[thumbnailPath] = {
                     originalImg: image
@@ -101,6 +143,7 @@ const generateGalleryFiles = () => {
 
 
 module.exports = {
-    getImagesFromFolder,
-    createThumbnails
+    listImagesFromFolder,
+    createThumbnails,
+    copyImagesFromFolder
 };
