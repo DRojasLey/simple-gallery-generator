@@ -10,7 +10,7 @@ program
         .version('0.1.0');
 
 program
-        .command('importImages')
+        .command('copyImages')
         .description('Copy all JPG, BMP, PNG files within the given folder to the gallery/images/ folder')
         .option('-p, --path <folderPath>','Specify path of the folder to import images from')
         .action((options) => {

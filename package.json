@@ -3,10 +3,14 @@
   "version": "0.2.0",
   "description": "Create simple HTML galleries generated from images in a folder, supporting jpg, png and bmp formats.",
   "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DRojasLey/simple-gallery-generator/tree/main"
+  },
   "scripts": {
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
     "createImageList": "node src/cli.js lsimages",
-    "importImages": "node src/cli.js  importImages ",
+    "copyImages": "node src/cli.js  copyImages ",
     "createThumbnails": "node src/cli.js thumbcreate imageIndex.json"
   },
   "keywords": [

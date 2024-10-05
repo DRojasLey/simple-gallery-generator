@@ -1,4 +1,4 @@
-# Image Gallery Generator v0.2.1
+# Image Gallery Generator v0.2.3
 
 A JavaScript package to create a basic image gallery from a given folder
 
@@ -61,18 +61,19 @@ This will scan the specified image folder and update any changes if there is an 
 
 >(internally used by the usage section features)
 
-### Copy Images To gallery/images folder (IN PROGRESS)
+### Copy Images To gallery/images folder
 
 ```bash
 
-npm run importImages -- -p path/to/your/images/folder/
+npm run copyImages -- -p path/to/your/images/folder/
 
 ```
 
 Given the original folder path:
 
-This will generate the list of images from the given folder
-Copy all the image files from the original folder to the gallery/images folder
+1. This will generate the list of images from the given folder
+1. Copy all the image files from the original folder to the gallery/images folder
+1. Delete the initial list
 
 
  Takes
@@ -174,6 +175,12 @@ image-gallery-generator/
 * Added imageLibrary.json file generation
 * Minor bugfixes
 * Clarified documentation
+
+##### v0.2.3:
+* Added image copying function
+* Thumbnail creation now creates thumbs if it doesn't exists
+* minor style and spacing fixes
+
 
 ## Contributing
 
