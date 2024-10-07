@@ -81,19 +81,14 @@ const copyListedImages = async () => {
  *
  * @param {string} directoryPath path from where the images will be copied from
  */
-const copyImagesFromFolder = (directoryPath) => {
+const copyImagesFromFolder = async (directoryPath) => {
 
     try {
         console.log(`Listing only images from folder: ${directoryPath}`);
-        listImagesFromFolder(directoryPath, true);
+        await listImagesFromFolder(directoryPath, true);
         setTimeout(()=>{
             copyListedImages();
         }, 5000)
-        /* This is to put the file deletion at the end of the execution queue
-        after all the images have been copied over to the target folder*/
-        setTimeout(()=>{
-            deleteExistingList('imageIndex.json');
-        }, 0)
 
     } catch (error) {
         console.log(`Your path was ${directoryPath} which is not a valid path`, error)
@@ -149,7 +144,7 @@ const createThumbnails = (imageListFile, width, height) => {
                     position: 'centre',
                     background: { r: 0, g: 0, b: 0 }
                 })
-                .toFile(`gallery/images/thumbs/thumb_${fileName}.${fileExtension}`);
+                .toFile(`gallery/images/thumbs/thumb_${fileName}${fileExtension}`);
 
                 imageLibrary[thumbnailPath] = {
                     originalImg: image

@@ -6,3 +6,6 @@ imageIndex.json
 
 # Ignore itself (if you choose to)
 .gitignore
+
+# Ignore the imageLibrary.json file
+imageLibrary.json

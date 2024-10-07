@@ -1,4 +1,4 @@
-# Image Gallery Generator v0.2.3
+# Image Gallery Generator v0.3.0
 
 A JavaScript package to create a basic image gallery from a given folder
 
@@ -17,7 +17,7 @@ npm install simple-gallery-gen
 * [path](https://nodejs.org/api/path.html)
 * [sharp](https://sharp.pixelplumbing.com/)
 
-## Usage (Usage is still pending):
+## Usage (Usage is still pending, Usage commands do not work yet):
 
 ### Initial Setup:
 
@@ -73,7 +73,6 @@ Given the original folder path:
 
 1. This will generate the list of images from the given folder
 1. Copy all the image files from the original folder to the gallery/images folder
-1. Delete the initial list
 
 
  Takes
@@ -87,6 +86,14 @@ Given the original folder path:
 
 npm run createImageList -- -p path/to/your/images/folder/
 
+```
+
+Example:
+
+To run after the images have been imported to the images folder
+
+```bash
+npm run createImageList -- -p ./gallery/images/
 ```
 
 This will generate the list of images from the given folder
@@ -141,6 +148,7 @@ image-gallery-generator/
 ├── README.md
 ├── package.json
 ├── package-lock.json
+├── imageLibrary.json <<< Generated here by utility
 ├── .gitignore
 ├── src/
 │   ├── main.js
@@ -148,9 +156,9 @@ image-gallery-generator/
 │   ├── gallery_generator.js
 │   └── cli.js
 └── gallery/
-    ├── index.html
+    ├── gallery.html
     ├── style.css
-    ├── index.js
+    ├── gallery.js
     └── images/
         └── thumbs/
 
@@ -181,6 +189,14 @@ image-gallery-generator/
 * Thumbnail creation now creates thumbs if it doesn't exists
 * minor style and spacing fixes
 
+### v0.3.0:
+* Images copying and import created
+* Basic HTML, CSS and JS templates for the gallery created
+* Fixed bugs:
+    * double gallery added on path when importing
+    * double point added on thumbnail file creation
+* File index.html ranemd to gallery.html to better reflect the package functionality
+* Removed delete imageIndex.json call from the copying images function, to avoid conflicts
 
 ## Contributing
 
