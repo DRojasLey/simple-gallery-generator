@@ -1,0 +1,5 @@
+gallery/images/
+imageIndex.json
+imageLibrary.json
+.gitignore
+.npmignore

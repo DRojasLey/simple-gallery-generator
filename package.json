@@ -1,11 +1,11 @@
 {
   "name": "simple-gallery-gen",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Create simple HTML galleries generated from images in a folder, supporting jpg, png and bmp formats.",
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DRojasLey/simple-gallery-generator/tree/main"
+    "url": "https://github.com/DRojasLey/simple-gallery-generator/"
   },
   "scripts": {
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
