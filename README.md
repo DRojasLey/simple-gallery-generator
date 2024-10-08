@@ -1,4 +1,4 @@
-# Image Gallery Generator v0.3.1
+# Image Gallery Generator v0.4.0
 
 A JavaScript package to create a basic image gallery from a given folder
 
@@ -131,6 +131,25 @@ Takes:
 For the desired width and height of the thumbnails in px (do not include the 'px' just the number (int))
 (it is recommended to use near/directly box values, or values that maintain the overall aspect ratio of the images)
 
+### Generate Web files
+
+```bash
+
+npm run setFiles -- -n 'Gallery Name' -t 'Gallery Title'
+```
+
+Given the gallery name and gallery title:
+
+* This will generate the web files (HTML, CSS & Js)
+
+ Takes
+
+* `-n string` or  `--galleryName string`
+* `-t string` or  `--galleryTitle string`
+
+Run this after generating the Thumbnails so the Css is properly set to handle your thumbnails.
+
+
 ## Features
 * Image Filtering: Filters only JPG, PNG and BMP images.
 * HTML Structure: Creates a basic HTML structure for the gallery.
@@ -153,12 +172,10 @@ image-gallery-generator/
 ├── src/
 │   ├── main.js
 │   ├── image_utils.js
+│   ├── data.js
 │   ├── gallery_generator.js
 │   └── cli.js
 └── gallery/
-    ├── gallery.html
-    ├── style.css
-    ├── gallery.js
     └── images/
         └── thumbs/
 
@@ -197,6 +214,12 @@ image-gallery-generator/
     * double point added on thumbnail file creation
 * File index.html ranemd to gallery.html to better reflect the package functionality
 * Removed delete imageIndex.json call from the copying images function, to avoid conflicts
+
+### v0.4.0:
+* Feature to add the web files added
+* Commands added
+* New data.js file added
+
 
 ## Contributing
 

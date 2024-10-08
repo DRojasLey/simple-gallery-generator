@@ -12,8 +12,7 @@
     "createImageList": "node src/cli.js lsimages",
     "copyImages": "node src/cli.js  copyImages ",
     "createThumbnails": "node src/cli.js thumbcreate imageIndex.json",
-    "postinstall": "echo 'Installation complete'"
-
+    "setFiles": "node src/cli.js set-files"
   },
   "bin": {
     "simple-gallery-gen": "./src/cli.js"

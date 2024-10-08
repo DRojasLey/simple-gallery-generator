@@ -2,14 +2,17 @@
 
 const { Command } = require('commander');
 const { copyImagesFromFolder, listImagesFromFolder, createThumbnails } = require('./image_utils.js');
+const { generateHtmlFile, generateCssFile, generateJsFile } = require('./gallery_generator.js');
 
 
 const program = new Command();
+const width = 0;
+const height= 0;
 
 program
-        .name('simple-gallery-gen-utilities')
+        .name('simple-gallery-gen')
         .description('Utilities for simple-gallery-gen package')
-        .version('0.1.0');
+        .version('0.3.1');
 
 program
         .command('copyImages')
@@ -37,8 +40,8 @@ program
         .option('-w, --width <width>', 'Specify the thumbnail width', parseInt)
         .option('-h, --height <height>', 'Specify the thumbnail height', parseInt)
         .action((filePath, options) => {
-            const width = options.width;
-            const height = options.height;
+            width = options.width;
+            height = options.height;
 
             if (!width || !height) {
                 console.error('Error: width and height must be specified.');
@@ -47,6 +50,21 @@ program
 
             console.log(`Processing images from file: ${filePath} with width: ${width} and height: ${height}`);
             createThumbnails(filePath, width, height);
-    });
+        });
+
+program
+        .command('set-files')
+        .description('Create HTML, CSS and JS files necessary for the gallery')
+        .option('-n, --galleryName <galleryName>', 'Specify the name of the gallery, this will be printed as the main title')
+        .option('-t, --galleryTitle <galleryTitle>', 'Specify the title of the gallery, this is the title used in the title parameter of the site' )
+        .action((options) => {
+            const galleryName = options.galleryName;
+            const galleryTitle = options.galleryTitle;
+
+            console.log('Processing File creation...')
+            generateHtmlFile('gallery/gallery.html', galleryName, galleryTitle);
+            generateCssFile('gallery/style.css', width);
+            generateJsFile();
+        });
 
 program.parse(process.argv);
