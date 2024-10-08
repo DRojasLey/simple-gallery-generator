@@ -1,4 +1,4 @@
-# Image Gallery Generator v0.3.0
+# Image Gallery Generator v0.3.1
 
 A JavaScript package to create a basic image gallery from a given folder
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { Command } = require('commander');
 const { copyImagesFromFolder, listImagesFromFolder, createThumbnails } = require('./image_utils.js');
 
