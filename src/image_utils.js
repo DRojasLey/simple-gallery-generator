@@ -22,7 +22,8 @@ const listImagesFromFolder = (folderPath, absoluteFlag) => {
         });
         const fullPathImages = onlyImageFiles.map(file => !absoluteFlag ? join(folderPath, file): resolve(folderPath, file));
         const jsonData = JSON.stringify(fullPathImages, null, 2);
-        writeFile('imageIndex.json', jsonData, (err)=>{
+        const imageIndexPath = path.resolve(process.cwd(), 'imageIndex.json');
+        writeFile(imageIndexPath, jsonData, (err)=>{
             if (err) throw err;
             console.log('Image list saved to file imageIndex.json');
         });
@@ -52,31 +53,36 @@ const deleteExistingList = (listName) => {
  * Copies the image files from the original location where they were listed into the gallery/images directory
  */
 const copyListedImages = async () => {
-    const imageIndexPath = path.join(__dirname, '../imageIndex.json');
-    const destinationFolder = path.join(__dirname, '../gallery/images');
+    const imageIndexPath = path.resolve(process.cwd(), 'imageIndex.json');
+    const destinationFolder = path.resolve(process.cwd(), 'gallery/images');
+
     try {
-        if (!imageIndexPath){
-            console.log('The imageIndex.json file does not exists, please list the images first');
-            throw error
+        if (!fs.existsSync(imageIndexPath)) {  // Check if the file exists
+            console.log('The imageIndex.json file does not exist. Please list the images first.');
+            throw new Error('imageIndex.json not found');
         }
+
         if (!fs.existsSync(destinationFolder)) {
-            console.log(`The gallery/images folder does not exists, creating the directory`)
+            console.log(`The gallery/images folder does not exist, creating the directory`);
             fs.mkdirSync(destinationFolder, { recursive: true });
-            console.log(`Success creating the target directory \n`)
+            console.log(`Success creating the target directory \n`);
         }
+
         const imagePaths = JSON.parse(fs.readFileSync(imageIndexPath, 'utf-8'));
-        console.log(`Starting the images copy operation: \n`)
+        console.log(`Starting the images copy operation: \n`);
+
         for (const imagePath of imagePaths) {
             const fileName = path.basename(imagePath);
             const destinationPath = path.join(destinationFolder, fileName);
             await fs.promises.copyFile(imagePath, destinationPath);
             console.log(`Copied: ${fileName}`);
         }
+
         console.log(`All images copied successfully!`);
     } catch (err) {
         console.error('Error copying images:', err);
     }
-}
+};
 
 /**
  * Copies images from the specified folder
@@ -88,14 +94,13 @@ const copyImagesFromFolder = async (directoryPath) => {
         try {
             console.log(`Listing only images from folder: ${directoryPath}`);
             await listImagesFromFolder(directoryPath, true);
-            // Wait for the listImagesFromFolder to complete before proceeding
             setTimeout(() => {
                 copyListedImages();
                 console.log(`Images copied from folder: ${directoryPath}`);
                 resolve(); // Resolve when the process is complete
             }, 5000);
         } catch (error) {
-            console.error(`Your path was ${directoryPath} which is not a valid path, a valid folder path is required`, error);
+            console.error(`Your path was ${directoryPath} which is not a valid path. A valid folder path is required`, error);
             reject(error); // Reject the promise in case of an error
         }
     });
@@ -111,7 +116,7 @@ const copyImagesFromFolder = async (directoryPath) => {
  */
 const createThumbnails = async (imageListFile, width, height) => {
     return new Promise(async (resolve, reject) => {
-        const destinationFolder = path.join(__dirname, '../gallery/images/thumbs');
+        const destinationFolder = path.resolve(process.cwd(), 'gallery/images/thumbs');
 
         // Ensure the thumbnails folder exists
         if (!fs.existsSync(destinationFolder)) {

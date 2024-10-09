@@ -1,4 +1,4 @@
-# Image Gallery Generator  v0.9.0-alpha.1
+# Image Gallery Generator  v0.9.1-alpha.1
 
 A JavaScript package to create a basic image gallery from a given folder
 
@@ -33,7 +33,7 @@ Simple setup with default values:
 
 ```Bash
 
-npm simple-gallery-gen setup -- -p <your_image_folder>
+npx simple-gallery-gen setup -p <your_image_folder>
 
 ```
 
@@ -41,7 +41,14 @@ Complete custom setup:
 
 ```Bash
 
-npm simple-gallery-gen setup -- -p  ~/Downloads/ -n 'Mea Galeria!' -t 'Mea Arte!' -w 200 -h 300
+npx simple-gallery-gen setup -p  path/to/your/images -n 'gallery name' -t 'gallery title' -w <width> -h <height>
+```
+
+Example:
+
+```Bash
+
+npx simple-gallery-gen setup -p  ~/Desktop/ -n 'Mea Galeria!' -t 'Mea Arte!' -w 200 -h 300
 ```
 
  Takes
@@ -61,7 +68,7 @@ npm simple-gallery-gen setup -- -p  ~/Downloads/ -n 'Mea Galeria!' -t 'Mea Arte!
 
 ```bash
 
-npm run copyImages -- -p path/to/your/images/folder/
+npx simple-gallery-gen copyImages -p path/to/your/images/folder/
 
 ```
 
@@ -80,7 +87,7 @@ Given the original folder path:
 
 ```bash
 
-npm run createImageList -- -p path/to/your/images/folder/
+npx simple-gallery-gen createImageList -- -p path/to/your/images/folder/
 
 ```
 
@@ -89,7 +96,7 @@ Example:
 To run after the images have been imported to the images folder
 
 ```bash
-npm run createImageList -- -p ./gallery/images/
+npx simple-gallery-gen createImageList -- -p ./gallery/images/
 ```
 
 This will generate the list of images from the given folder
@@ -102,7 +109,7 @@ This will generate the list of images from the given folder
 Example:
 
 ```bash
- npm run createImageList -- -p ~/Desktop/
+npx simple-gallery-gen createImageList -- -p ~/Desktop/
 ```
 
 
@@ -111,7 +118,7 @@ Example:
 
 ```bash
 
-npm run createThumbnails -- -w 250 -h 250
+npx simple-gallery-gen createThumbnails -- -w 250 -h 250
 
 ```
 
@@ -132,7 +139,7 @@ For the desired width and height of the thumbnails in px (do not include the 'px
 
 ```bash
 
-npm run setFiles -- -n 'Gallery Name' -t 'Gallery Title'
+npx simple-gallery-gen setFiles -- -n 'Gallery Name' -t 'Gallery Title'
 ```
 
 Given the gallery name and gallery title:
@@ -216,7 +223,7 @@ image-gallery-generator/
 * Commands added
 * New data.js file added
 
-## v0.9.0-alpha.1
+## v0.9.0-alpha.1:
 * One command setup feature added
 * first functional version of the program
 * NextUp section created in the README
@@ -224,6 +231,11 @@ image-gallery-generator/
 * Documentation update on all functions
 * Deleted unused files
 * Deleted unused placeholder functions
+
+### v0.9.1-alpha.1:
+* Bug fix, path handling was causing the commands to generate the gallery under the incorrect directory
+* Documentation update
+
 
 ## NextUp:
 

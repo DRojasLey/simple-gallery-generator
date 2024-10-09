@@ -1,6 +1,6 @@
 {
   "name": "simple-gallery-gen",
-  "version": "0.9.0-alpha.1",
+  "version": "0.9.1-alpha.1",
   "description": "Create simple HTML galleries generated from images in a folder, supporting jpg, png and bmp formats.",
   "main": "cli.js",
   "repository": {

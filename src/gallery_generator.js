@@ -73,7 +73,7 @@ const generateCssFile = async (filePath, thumbSize = 250) => {
  */
 const generateJsFile = async () => {
     return new Promise((resolve, reject) => {
-        const outputFilePath = path.join(__dirname, '../gallery', 'gallery.js');
+        const outputFilePath = path.resolve(process.cwd(), 'gallery', 'gallery.js');
         // Ensure the directory exists
         const dir = path.dirname(outputFilePath);
         if (!fs.existsSync(dir)) {
