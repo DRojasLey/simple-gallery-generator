@@ -62,9 +62,10 @@ const copyListedImages = async () => {
         if (!fs.existsSync(destinationFolder)) {
             console.log(`The gallery/images folder does not exists, creating the directory`)
             fs.mkdirSync(destinationFolder, { recursive: true });
-            console.log(`Success creating the target directory`)
+            console.log(`Success creating the target directory \n`)
         }
         const imagePaths = JSON.parse(fs.readFileSync(imageIndexPath, 'utf-8'));
+        console.log(`Starting the images copy operation: \n`)
         for (const imagePath of imagePaths) {
             const fileName = path.basename(imagePath);
             const destinationPath = path.join(destinationFolder, fileName);
@@ -78,99 +79,96 @@ const copyListedImages = async () => {
 }
 
 /**
- *
- * @param {string} directoryPath path from where the images will be copied from
+ * Copies images from the specified folder
+ * @param {string} directoryPath - Path to the folder where the images are located
+ * @returns {Promise} - A promise that resolves when the images are copied successfully or rejects if an error occurs
  */
 const copyImagesFromFolder = async (directoryPath) => {
-
-    try {
-        console.log(`Listing only images from folder: ${directoryPath}`);
-        await listImagesFromFolder(directoryPath, true);
-        setTimeout(()=>{
-            copyListedImages();
-        }, 5000)
-
-    } catch (error) {
-        console.log(`Your path was ${directoryPath} which is not a valid path`, error)
-    }
-
-}
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log(`Listing only images from folder: ${directoryPath}`);
+            await listImagesFromFolder(directoryPath, true);
+            // Wait for the listImagesFromFolder to complete before proceeding
+            setTimeout(() => {
+                copyListedImages();
+                console.log(`Images copied from folder: ${directoryPath}`);
+                resolve(); // Resolve when the process is complete
+            }, 5000);
+        } catch (error) {
+            console.error(`Your path was ${directoryPath} which is not a valid path, a valid folder path is required`, error);
+            reject(error); // Reject the promise in case of an error
+        }
+    });
+};
 
 
 /**
-* create thumbnails for all the images in the given lists
-* @param {string} imageListFile path to the file that lists all image files
-*/
-const createThumbnails = (imageListFile, width, height) => {
-    let images;
-    const destinationFolder = path.join(__dirname, '../gallery/images/thumbs');
-    if (!fs.existsSync(destinationFolder)) {
-        console.log(`The thumbs folder does not exists, creating the directory`)
-        fs.mkdirSync(destinationFolder, { recursive: true });
-        console.log(`Success creating the target directory`)
-    }
-    /**
-    *
-    * @param {string} imgListFile path to the file that lists all image files
-    * @returns array of names of all the image files
-    */
-    const readImageFile = (imgListFile) =>{
-        const data = readFileSync(imgListFile, 'utf8');
-        try{
-            imagesList = JSON.parse(data);
-        } catch (error) {
-            console.error('error parsing JSON file', error)
-            return
-        }
-        return imagesList
-    }
-    images = readImageFile(imageListFile)
-    const imageLibrary = {};
+ * Creates thumbnails for all the images in the given list and saves the image library to a file.
+ * @param {string} imageListFile - Path to the file that lists all image files
+ * @param {number} width - Width of the thumbnail
+ * @param {number} height - Height of the thumbnail
+ * @returns {Promise} - A promise that resolves when the thumbnails are created and the image library is saved
+ */
+const createThumbnails = async (imageListFile, width, height) => {
+    return new Promise(async (resolve, reject) => {
+        const destinationFolder = path.join(__dirname, '../gallery/images/thumbs');
 
-    /**
-    * create a thumbnail image from each listed image & add the imageLibrary.json file
-    * @param {Array} imageArray extracted from the image list
-    */
-    const createThumbnailimages = async (imageArray, width, height) => {
-        for (const image of imageArray) {
-            const fileExtension = extname(image).toLowerCase();
-            const fileName = basename(image, fileExtension);
-            const thumbnailPath = `gallery/images/thumbs/thumb_${fileName}${fileExtension}`;
+        // Ensure the thumbnails folder exists
+        if (!fs.existsSync(destinationFolder)) {
+            console.log(`The thumbs folder does not exist, creating the directory`);
+            fs.mkdirSync(destinationFolder, { recursive: true });
+            console.log(`Success creating the target directory`);
+        }
+        // Read the list of image files from the provided JSON file
+        let images;
+        const readImageFile = (imgListFile) => {
+            const data = readFileSync(imgListFile, 'utf8');
             try {
-                await sharp(image)
-                .resize(width, height, {
-                    kernel: sharp.kernel.nearest,
-                    fit: 'contain',
-                    position: 'centre',
-                    background: { r: 0, g: 0, b: 0 }
-                })
-                .toFile(`gallery/images/thumbs/thumb_${fileName}${fileExtension}`);
-
-                imageLibrary[thumbnailPath] = {
-                    originalImg: image
-                };
-                console.log(`Thumbnail created for: ${image}`);
-
+                return JSON.parse(data);
             } catch (error) {
-                console.error(`Error creating thumbnail for ${image}:`, error);
+                console.error('Error parsing JSON file. Does the image list file exist?', error);
+                reject(error);  // Reject the promise if reading or parsing fails
             }
-        }
-        writeFile('imageLibrary.json', JSON.stringify(imageLibrary, null, 2), (err) => {
-            if (err) throw err;
-            console.log('Thumbnails map saved to imageLibrary.json');
-        });
+        };
+        images = readImageFile(imageListFile);
+        const imageLibrary = {};
+        // Create thumbnails for each image and update the image library
+        const createThumbnailImages = async (imageArray, width, height) => {
+            for (const image of imageArray) {
+                const fileExtension = extname(image).toLowerCase();
+                const fileName = basename(image, fileExtension);
+                const thumbnailPath = `gallery/images/thumbs/thumb_${fileName}${fileExtension}`;
+                try {
+                    await sharp(image)
+                        .resize(width, height, {
+                            kernel: sharp.kernel.nearest,
+                            fit: 'contain',
+                            position: 'centre',
+                            background: { r: 0, g: 0, b: 0 }
+                        })
+                        .toFile(thumbnailPath);
 
-    }
-
-    createThumbnailimages(images, width, height);
+                    imageLibrary[thumbnailPath] = {
+                        originalImg: image
+                    };
+                    console.log(`Thumbnail created for: ${image}`);
+                } catch (error) {
+                    console.error(`Error creating thumbnail for ${image}:`, error);
+                }
+            }
+            // Save the image library to a JSON file
+            fs.writeFile('imageLibrary.json', JSON.stringify(imageLibrary, null, 2), (err) => {
+                if (err) {
+                    reject(err);  // Reject the promise if writing fails
+                    return;
+                }
+                console.log('Thumbnails map saved to imageLibrary.json');
+                resolve();  // Resolve the promise once everything is done
+            });
+        };
+        await createThumbnailImages(images, width, height);
+    });
 };
-
-// Placeholder for the gallery generation function
-const generateGalleryFiles = () => {
-    // This function will handle HTML, CSS, and JS generation
-    console.log('Gallery files generated!');
-};
-
 
 module.exports = {
     listImagesFromFolder,

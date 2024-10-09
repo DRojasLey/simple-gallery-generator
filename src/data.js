@@ -1,3 +1,9 @@
+/**
+ * get gallery html template
+ * @param {string} title - title for the title html element
+ * @param {*} mainTitle - main title display in the top of the gallerty page
+ * @returns html contents to add into a new gallery.html file
+ */
 const htmlTemplate = (title, mainTitle) => {
     return `
 <!DOCTYPE html>
@@ -12,7 +18,7 @@ const htmlTemplate = (title, mainTitle) => {
   <header class="simple-header">
     <nav class="navigationBlock" id="navigation">
       <ul class="navigation">
-        <li><a href="./index.html">HOME</a></li>
+        <li><a href="./gallery.html">HOME</a></li>
         <li><a href="./gallery.html">GALLERY</a></li>
       </ul>
     </nav>
@@ -25,7 +31,7 @@ const htmlTemplate = (title, mainTitle) => {
 
   </section>
   <footer>
-    <div class="created-with">Generated with <span class="simple-gallery-link"><a href="simple-gallery-genLinkhere">simple-gallery-gen</a></span></div>
+    <div class="created-with">Generated with <span class="simple-gallery-link"><a href="https://github.com/DRojasLey/simple-gallery-generator">simple-gallery-gen</a></span></div>
   </footer>
   <script src="gallery.js"></script>
 </body>
@@ -33,6 +39,11 @@ const htmlTemplate = (title, mainTitle) => {
 `
 };
 
+/**
+ * get gallery css content
+ * @param {number} thumbSize - thumbnail size selected during gallery creation
+ * @returns - CSS template for the gallery
+ */
 const cssTemplate = (thumbSize) => {
     return `
     body {
@@ -75,10 +86,10 @@ ul {
 .thumbnail {
   cursor: pointer;
   width: ${thumbSize}px;
-  height: auto; /* Ensure the height adjusts based on aspect ratio */
+  height: auto;
   display: block;
-  object-fit: cover; /* Ensures the image fits within the container while maintaining aspect ratio */
-  border-radius: 8px; /* Optional for rounded corners */
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .modal {
@@ -117,6 +128,10 @@ ul {
     `
 }
 
+/**
+ * get Js template for the gallery
+ * @returns - javascript template for the gallery
+ */
 const jsTemplate = () => `
 // DOM declarations:
 

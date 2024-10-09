@@ -1,4 +1,4 @@
-# Image Gallery Generator v0.4.0
+# Image Gallery Generator  v0.9.0-alpha.1
 
 A JavaScript package to create a basic image gallery from a given folder
 
@@ -17,15 +17,10 @@ npm install simple-gallery-gen
 * [path](https://nodejs.org/api/path.html)
 * [sharp](https://sharp.pixelplumbing.com/)
 
-## Usage (Usage is still pending, Usage commands do not work yet):
+## Usage
 
 ### Initial Setup:
 
-```Bash
-
-npm simple-gallery-gen setup --image-folder <your_image_folder>
-
-```
 This will:
 1. Create the necessary gallery folder, adding the following files:
     * gallery.html
@@ -34,32 +29,33 @@ This will:
 1. Create a list of the images in the given image-folder
 1. Create the gallery/images folder, copying only the jpg, png and bmp images from the given image-folder
 
-### Generate Gallery:
+Simple setup with default values:
 
 ```Bash
 
-simple-gallery-gen generate
-
-```
-This will:
-1. Scan the gallery/image folder, generating the initial imageIndex.json file
-1. Create thumbnails for each image, updating the imageIndex.json file
-1. Update the index.js file with the required logic
-
-### Update Gallery:
-
-```bash
-
-simple-gallery-gen update
+npm simple-gallery-gen setup -- -p <your_image_folder>
 
 ```
 
-This will scan the specified image folder and update any changes if there is an already generated gallery
+Complete custom setup:
+
+```Bash
+
+npm simple-gallery-gen setup -- -p  ~/Downloads/ -n 'Mea Galeria!' -t 'Mea Arte!' -w 200 -h 300
+```
+
+ Takes
+
+* `-p path/to/your/images/folder/` or  `--folderPath path/to/your/images/folder/`
+* `-n string` or  `--galleryName string`
+* `-t string` or  `--galleryTitle string`
+* `-w <number>` or `--width <number>`
+* `-h <number>` or `--height <number>`
 
 
 ## Utilities:
 
->(internally used by the usage section features)
+>(internally used by the usage section features but can be used independently)
 
 ### Copy Images To gallery/images folder
 
@@ -120,6 +116,7 @@ npm run createThumbnails -- -w 250 -h 250
 ```
 
 [!] Important: width and height flags MUST be specified.
+[!] Important: A list file must already exist, generate a list before running this command
 
 This will take the original list created from the folder files and generate a corresponding thumbnail for each image under the gallery/images folder ```gallery/images/thumbs```
 
@@ -147,8 +144,8 @@ Given the gallery name and gallery title:
 * `-n string` or  `--galleryName string`
 * `-t string` or  `--galleryTitle string`
 
-Run this after generating the Thumbnails so the Css is properly set to handle your thumbnails.
-
+[!] Important: Run this after generating the Thumbnails, so the CSS is adjusted to your desired thumbnail size else the default values will be w250 h250.
+[!] Important: if no name or title is provided the default values are: name: Gallery, title: My Gallery
 
 ## Features
 * Image Filtering: Filters only JPG, PNG and BMP images.
@@ -170,7 +167,6 @@ image-gallery-generator/
 ├── imageLibrary.json <<< Generated here by utility
 ├── .gitignore
 ├── src/
-│   ├── main.js
 │   ├── image_utils.js
 │   ├── data.js
 │   ├── gallery_generator.js
@@ -219,6 +215,24 @@ image-gallery-generator/
 * Feature to add the web files added
 * Commands added
 * New data.js file added
+
+## v0.9.0-alpha.1
+* One command setup feature added
+* first functional version of the program
+* NextUp section created in the README
+* Most functions converted to async
+* Documentation update on all functions
+* Deleted unused files
+* Deleted unused placeholder functions
+
+## NextUp:
+
+* [ ] Modal on click of image inclusion
+* [ ] Options to generate the files in a different target folder
+* [ ] Option to specify a Home page for the Home link of the gallery
+* [ ] Update Gallery, when new images are imported, removed the need of creating a new gallery
+
+
 
 
 ## Contributing

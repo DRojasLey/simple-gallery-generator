@@ -2,16 +2,16 @@
 
 const { Command } = require('commander');
 const { copyImagesFromFolder, listImagesFromFolder, createThumbnails } = require('./image_utils.js');
-const { generateHtmlFile, generateCssFile, generateJsFile } = require('./gallery_generator.js');
+const { generateHtmlFile, generateCssFile, generateJsFile, createNewGallery } = require('./gallery_generator.js');
 
 
 const program = new Command();
-const width = 0;
-const height= 0;
+let width = 0;
+let height= 250;
 
 program
         .name('simple-gallery-gen')
-        .description('Utilities for simple-gallery-gen package')
+        .description('simple-gallery-gen utilities, provides commands for a simple HTML based gallery from a folder')
         .version('0.3.1');
 
 program
@@ -66,5 +66,25 @@ program
             generateCssFile('gallery/style.css', width);
             generateJsFile();
         });
+
+program
+        .command('setup')
+        .description('Setup your gallery with one command,')
+        .option('-p, --folderPath <folderPath>', 'Specify the folder where you want to import the images from')
+        .option('-n, --galleryName <galleryName>', 'Specify the name of the gallery, this will be printed as the main title')
+        .option('-t, --galleryTitle <galleryTitle>', 'Specify the title of the gallery, this is the title used in the title parameter of the site' )
+        .option('-w, --width <width>', 'Specify the thumbnail width', parseInt)
+        .option('-h, --height <height>', 'Specify the thumbnail height', parseInt)
+        .action((options) => {
+            const galleryName = options.galleryName;
+            const galleryTitle = options.galleryTitle;
+            const folderPath = options.folderPath
+            width = options.width;
+            height = options.height;
+            console.log('Creating the Gallery....')
+            createNewGallery(folderPath, galleryName, galleryTitle, width, height)
+
+        });
+
 
 program.parse(process.argv);
