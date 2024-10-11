@@ -1,4 +1,4 @@
-# Image Gallery Generator  v1.0.1
+# Image Gallery Generator  v1.0.2
 
 A JavaScript package to create a basic image gallery from a given folder.
 
@@ -7,9 +7,7 @@ The created gallery is a three colum image gallery which will display a modal wh
 ## Installation
 
 ```Bash
-
 npm install simple-gallery-gen
-
 ```
 
 ### Dependencies:
@@ -93,7 +91,7 @@ Given the original folder path:
 ### Generate list of images
 
 ```bash
-npx simple-gallery-gen lsimages -- -p path/to/your/images/folder/
+npx simple-gallery-gen lsimages -p path/to/your/images/folder/
 ```
 
 Example:
@@ -101,7 +99,7 @@ Example:
 To run after the images have been imported to the images folder
 
 ```bash
-npx simple-gallery-gen lsimages -- -p ./gallery/images/
+npx simple-gallery-gen lsimages -p ./gallery/images/
 ```
 
 This will generate the list of images from the given folder
@@ -114,7 +112,7 @@ This will generate the list of images from the given folder
 Example:
 
 ```bash
-npx simple-gallery-gen lsimages -- -p ~/Desktop/
+npx simple-gallery-gen lsimages -p ~/Desktop/
 ```
 
 
@@ -122,7 +120,7 @@ npx simple-gallery-gen lsimages -- -p ~/Desktop/
 
 
 ```bash
-npx simple-gallery-gen thumbcreate -- -w 250 -h 250
+npx simple-gallery-gen thumbcreate <path/to/the/imageIndex.json> -w 250 -h 250
 ```
 
 [!] Important: width and height flags MUST be specified.
@@ -141,7 +139,7 @@ For the desired width and height of the thumbnails in px (do not include the 'px
 ### Generate Web files
 
 ```bash
-npx simple-gallery-gen set-files -- -n 'Gallery Name' -t 'Gallery Title'
+npx simple-gallery-gen set-files -n 'Gallery Name' -t 'Gallery Title'
 ```
 
 Given the gallery name and gallery title:
@@ -253,6 +251,10 @@ gallery/
 ### v1.0.1
 * --help command has been updated with correct usage instructions
 * Documentation updated to reflect actual available commands
+
+### v1.0.2
+* --help command documentation small updates
+* README file updated commands corrected
 
 ## NextUp:
 

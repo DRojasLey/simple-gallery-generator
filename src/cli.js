@@ -75,7 +75,7 @@ let height= 250;
 program
         .name('simple-gallery-gen')
         .description(helpMessages.programDescription)
-        .version('1.0.1');
+        .version('1.0.2');
 
 program
         .command('copyImages')
