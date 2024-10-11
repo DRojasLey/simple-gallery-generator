@@ -1,6 +1,8 @@
-# Image Gallery Generator  v0.9.1-alpha.1
+# Image Gallery Generator  v1.0.0
 
-A JavaScript package to create a basic image gallery from a given folder
+A JavaScript package to create a basic image gallery from a given folder.
+
+The created gallery is a three colum image gallery which will display a modal when a thumbnail is clicked.
 
 ## Installation
 
@@ -28,27 +30,21 @@ This will:
     * index.js
 1. Create a list of the images in the given image-folder
 1. Create the gallery/images folder, copying only the jpg, png and bmp images from the given image-folder
+1. Create create Thumbnails for each imported image
+1. Create an imageLibrary.json file to store the images data
 
-Simple setup with default values:
-
-```Bash
-
-npx simple-gallery-gen setup -p <your_image_folder>
-
-```
-
-Complete custom setup:
+#### Complete setup:
 
 ```Bash
 
 npx simple-gallery-gen setup -p  path/to/your/images -n 'gallery name' -t 'gallery title' -w <width> -h <height>
 ```
 
-Example:
+#### Example:
 
 ```Bash
 
-npx simple-gallery-gen setup -p  ~/Desktop/ -n 'Mea Galeria!' -t 'Mea Arte!' -w 200 -h 300
+npx simple-gallery-gen setup -p  ~/Downloads/ -n 'Mea Galeria!' -t 'Mea Arte!' -w 250 -h 250
 ```
 
  Takes
@@ -174,13 +170,20 @@ image-gallery-generator/
 ├── imageLibrary.json <<< Generated here by utility
 ├── .gitignore
 ├── src/
-│   ├── image_utils.js
-│   ├── data.js
-│   ├── gallery_generator.js
-│   └── cli.js
-└── gallery/
-    └── images/
-        └── thumbs/
+   ├── image_utils.js
+   ├── data.js
+   ├── gallery_generator.js
+   └── cli.js
+```
+## Generated Gallery Structure
+
+```
+gallery/
+    ├─── images/
+    │   └── thumbs/
+    ├─── gallery.html
+    ├─── style.css
+    └─── gallery.js
 
 ```
 ## Changelog
@@ -236,10 +239,16 @@ image-gallery-generator/
 * Bug fix, path handling was causing the commands to generate the gallery under the incorrect directory
 * Documentation update
 
+## v1.0.0:
+* Modal function added to the gallery
+* Corrected path bug related to the modal
+* Corrected bug causing double gallery (previous correction was temporary)
+* v1.0.0 released
+
 
 ## NextUp:
 
-* [ ] Modal on click of image inclusion
+* [x] Modal on click of image inclusion
 * [ ] Options to generate the files in a different target folder
 * [ ] Option to specify a Home page for the Home link of the gallery
 * [ ] Update Gallery, when new images are imported, removed the need of creating a new gallery

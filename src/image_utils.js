@@ -107,6 +107,7 @@ const copyImagesFromFolder = async (directoryPath) => {
 };
 
 
+
 /**
  * Creates thumbnails for all the images in the given list and saves the image library to a file.
  * @param {string} imageListFile - Path to the file that lists all image files
@@ -152,9 +153,11 @@ const createThumbnails = async (imageListFile, width, height) => {
                             background: { r: 0, g: 0, b: 0 }
                         })
                         .toFile(thumbnailPath);
+                        const imageUpdated = path.join('images', path.basename(image));
+                        const updatedThumbnailPath = path.relative('gallery', thumbnailPath);
 
-                    imageLibrary[thumbnailPath] = {
-                        originalImg: image
+                    imageLibrary[updatedThumbnailPath] = {
+                        originalImg: imageUpdated
                     };
                     console.log(`Thumbnail created for: ${image}`);
                 } catch (error) {

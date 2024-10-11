@@ -29,6 +29,12 @@ const htmlTemplate = (title, mainTitle) => {
     <div class="gallery" id="gallery">
     </div>
 
+    <div id="imageModal" class="modal">
+      <img class="modal-content" id="modalImage">
+      <span id="closeModal" class="close">&times; Close</span>
+
+    </div>
+
   </section>
   <footer>
     <div class="created-with">Generated with <span class="simple-gallery-link"><a href="https://github.com/DRojasLey/simple-gallery-generator">simple-gallery-gen</a></span></div>
@@ -95,8 +101,10 @@ ul {
 .modal {
   display: none;
   position: fixed;
-  top: 0;
+  z-index: 1;
+  padding-top: 100px;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
@@ -113,6 +121,28 @@ ul {
   right: 0;
 }
 
+.close:hover {
+  background-color: #444;
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.close {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  background-color: #000;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 2;
+}
+
 .created-with {
   font-style: italic;
   color: rgb(222, 11, 11);
@@ -124,8 +154,7 @@ ul {
 .simple-gallery-link {
   color: white;
 }
-
-    `
+`
 }
 
 /**
@@ -163,15 +192,32 @@ const getLibaryData = async () => {
  * @param {object} data fetched from the library file
  */
 const createNewImage = (data) => {
-    for (thumbnail in data) {
-        const newImgElement = document.createElement('img');
-        const correctedThumbnailPath = thumbnail.replace(/^gallery\\//, ''); // this removes double "gallery" word from the image path
+  for (const thumbnail in data) {
+    const newImgElement = document.createElement('img');
+    const correctedThumbnailPath = thumbnail
 
-        newImgElement.setAttribute('src', correctedThumbnailPath);
-        newImgElement.setAttribute('alt', data[thumbnail].originalImg);
-        galleryBlock.appendChild(newImgElement);
-    }
+    newImgElement.setAttribute('class', 'thumbnail');
+    newImgElement.setAttribute('src', correctedThumbnailPath);
+    newImgElement.setAttribute('alt', data[thumbnail].originalImg);
+    galleryBlock.appendChild(newImgElement);
+
+    // Add event listener for the modal
+    newImgElement.addEventListener('click', () => {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const caption = document.getElementById('caption');
+
+      modal.style.display = 'block'; // Show the modal
+      modalImage.src = data[thumbnail].originalImg; // Show the original image
+
+      const closeModal = document.getElementById('closeModal');
+      closeModal.addEventListener('click', ()=> {
+        modal.style.display = 'none';
+      })
+    });
+  }
 };
+
 
 /**
  * calls the library on load and imports the images to the page

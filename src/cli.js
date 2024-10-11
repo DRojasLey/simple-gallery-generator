@@ -12,7 +12,7 @@ let height= 250;
 program
         .name('simple-gallery-gen')
         .description('simple-gallery-gen utilities, provides commands for a simple HTML based gallery from a folder')
-        .version('0.3.1');
+        .version('1.0.0');
 
 program
         .command('copyImages')

@@ -86,7 +86,7 @@ const generateJsFile = async () => {
                 reject(err);
                 return;
             } else {
-                console.log(`JavaScript file has been created at: ${outputFilePath}`);
+                console.log(`JavaScript file created at: ${outputFilePath}`);
                 resolve();
             }
         });
