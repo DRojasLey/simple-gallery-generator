@@ -1,8 +1,8 @@
-# Image Gallery Generator  v1.0.2
+# Image Gallery Generator  v1.0.3
 
 A JavaScript package to create a basic image gallery from a given folder.
 
-The created gallery is a three colum image gallery which will display a modal when a thumbnail is clicked.
+The created gallery is a three column image gallery which will display a modal when a thumbnail is clicked.
 
 ## Installation
 
@@ -28,8 +28,8 @@ This will:
     * index.js
 1. Create a list of the images in the given image-folder
 1. Create the gallery/images folder, copying only the jpg, png and bmp images from the given image-folder
-1. Create create Thumbnails for each imported image
-1. Create an imageLibrary.json file to store the images data
+1. Create Thumbnails for each imported image
+1. Create an imageLibrary.json file to store image data
 
 #### Complete setup:
 
@@ -142,7 +142,7 @@ For the desired width and height of the thumbnails in px (do not include the 'px
 npx simple-gallery-gen set-files -n 'Gallery Name' -t 'Gallery Title'
 ```
 
-Given the gallery name and gallery title:
+Given the Gallery Name and Gallery Title:
 
 * This will generate the web files (HTML, CSS & Js)
 
@@ -155,7 +155,7 @@ Given the gallery name and gallery title:
 [!] Important: if no name or title is provided the default values are: name: Gallery, title: My Gallery
 
 ## Features
-* Image Filtering: Filters only JPG, PNG and BMP images.
+* Image Filtering: Filters only JPG, PNG, and BMP images.
 * HTML Structure: Creates a basic HTML structure for the gallery.
 * CSS Styling: Provides basic CSS styles for the gallery.
 * JavaScript Functionality:
@@ -219,9 +219,9 @@ gallery/
 * Images copying and import created
 * Basic HTML, CSS and JS templates for the gallery created
 * Fixed bugs:
-    * double gallery added on path when importing
-    * double point added on thumbnail file creation
-* File index.html ranemd to gallery.html to better reflect the package functionality
+    * double gallery entry added on path when importing images
+    * double dot added on thumbnail file creation
+* File index.html renamed to gallery.html to better reflect the package functionality
 * Removed delete imageIndex.json call from the copying images function, to avoid conflicts
 
 ### v0.4.0:
@@ -236,7 +236,7 @@ gallery/
 * Most functions converted to async
 * Documentation update on all functions
 * Deleted unused files
-* Deleted unused placeholder functions
+* Removed unused placeholder functions
 
 ### v0.9.1-alpha.1:
 * Bug fix, path handling was causing the commands to generate the gallery under the incorrect directory
@@ -250,11 +250,14 @@ gallery/
 
 ### v1.0.1
 * --help command has been updated with correct usage instructions
-* Documentation updated to reflect actual available commands
+* Documentation updated to reflect the actual available commands
 
 ### v1.0.2
 * --help command documentation small updates
 * README file updated commands corrected
+
+### v1.0.3
+* README file grammar corrections
 
 ## NextUp:
 
