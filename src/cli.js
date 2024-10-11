@@ -31,7 +31,6 @@ const helpMessages = {
         Options:
 
             -p , --path <path/to/your/images/folder/>
-
             `,
     thumbcreateDescription:`Will create thumbnails of the images listed on the imageIndex.json file, therefore this must be run after a list has been created
 
@@ -40,13 +39,16 @@ const helpMessages = {
             -w, --width <number>
             -h, --height <number>
 
+        Usage:
+
+            npx simple-gallery-gen thumbcreate <path/to/the/imageIndex.json> -w <number> -h <number>
+
             [!] Important: width and height flags MUST be specified.
             [!] Important: A list file must already exist, generate a list before running this command
 
             This will take the original list created from the folder files and generate a corresponding thumbnail for each image under the gallery/images folder gallery/images/thumbs
 
             Will create the imageLibrary.json file.
-
             `,
     setFilesDescription:`Create HTML, CSS and JS files necessary for the gallery
 
