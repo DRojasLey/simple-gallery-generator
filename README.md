@@ -1,4 +1,4 @@
-# Image Gallery Generator  v1.0.0
+# Image Gallery Generator  v1.0.1
 
 A JavaScript package to create a basic image gallery from a given folder.
 
@@ -36,14 +36,12 @@ This will:
 #### Complete setup:
 
 ```Bash
-
 npx simple-gallery-gen setup -p  path/to/your/images -n 'gallery name' -t 'gallery title' -w <width> -h <height>
 ```
 
 #### Example:
 
 ```Bash
-
 npx simple-gallery-gen setup -p  ~/Downloads/ -n 'Mea Galeria!' -t 'Mea Arte!' -w 250 -h 250
 ```
 
@@ -56,6 +54,21 @@ npx simple-gallery-gen setup -p  ~/Downloads/ -n 'Mea Galeria!' -t 'Mea Arte!' -
 * `-h <number>` or `--height <number>`
 
 
+#### Help:
+
+General program help:
+
+```Bash
+npx simple-gallery-gen --help
+```
+
+Specific command help:
+
+```Bash
+npx simple-gallery-gen <command> --help
+```
+
+
 ## Utilities:
 
 >(internally used by the usage section features but can be used independently)
@@ -63,9 +76,7 @@ npx simple-gallery-gen setup -p  ~/Downloads/ -n 'Mea Galeria!' -t 'Mea Arte!' -
 ### Copy Images To gallery/images folder
 
 ```bash
-
 npx simple-gallery-gen copyImages -p path/to/your/images/folder/
-
 ```
 
 Given the original folder path:
@@ -82,9 +93,7 @@ Given the original folder path:
 ### Generate list of images
 
 ```bash
-
-npx simple-gallery-gen createImageList -- -p path/to/your/images/folder/
-
+npx simple-gallery-gen lsimages -- -p path/to/your/images/folder/
 ```
 
 Example:
@@ -92,7 +101,7 @@ Example:
 To run after the images have been imported to the images folder
 
 ```bash
-npx simple-gallery-gen createImageList -- -p ./gallery/images/
+npx simple-gallery-gen lsimages -- -p ./gallery/images/
 ```
 
 This will generate the list of images from the given folder
@@ -105,7 +114,7 @@ This will generate the list of images from the given folder
 Example:
 
 ```bash
-npx simple-gallery-gen createImageList -- -p ~/Desktop/
+npx simple-gallery-gen lsimages -- -p ~/Desktop/
 ```
 
 
@@ -113,9 +122,7 @@ npx simple-gallery-gen createImageList -- -p ~/Desktop/
 
 
 ```bash
-
-npx simple-gallery-gen createThumbnails -- -w 250 -h 250
-
+npx simple-gallery-gen thumbcreate -- -w 250 -h 250
 ```
 
 [!] Important: width and height flags MUST be specified.
@@ -134,8 +141,7 @@ For the desired width and height of the thumbnails in px (do not include the 'px
 ### Generate Web files
 
 ```bash
-
-npx simple-gallery-gen setFiles -- -n 'Gallery Name' -t 'Gallery Title'
+npx simple-gallery-gen set-files -- -n 'Gallery Name' -t 'Gallery Title'
 ```
 
 Given the gallery name and gallery title:
@@ -184,7 +190,6 @@ gallery/
     ├─── gallery.html
     ├─── style.css
     └─── gallery.js
-
 ```
 ## Changelog
 
@@ -245,16 +250,17 @@ gallery/
 * Corrected bug causing double gallery (previous correction was temporary)
 * v1.0.0 released
 
+### v1.0.1
+* --help command has been updated with correct usage instructions
+* Documentation updated to reflect actual available commands
 
 ## NextUp:
 
+* [x] Help command
 * [x] Modal on click of image inclusion
 * [ ] Options to generate the files in a different target folder
 * [ ] Option to specify a Home page for the Home link of the gallery
 * [ ] Update Gallery, when new images are imported, removed the need of creating a new gallery
-
-
-
 
 ## Contributing
 
