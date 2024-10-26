@@ -21,7 +21,7 @@ const generateHtmlFile = async (
   mainTitle: string = 'Gallery'
 ): Promise<void> => {
   return new Promise((resolve, reject) => {
-    const dir: String = path.dirname(filePath);
+    const dir: string = path.dirname(filePath);
     
     // Ensure the directory exists
     if (!fs.existsSync(dir)) {
@@ -83,16 +83,16 @@ const generateCssFile = async (
  * Create the JavaScript file
  * @returns {Promise} - A promise that resolves when the JS file is successfully created, or rejects if an error occurs
  */
-const generateJsFile = async () => {
+const generateJsFile = async (): Promise<void> => {
     return new Promise((resolve, reject) => {
-        const outputFilePath = path.resolve(process.cwd(), 'gallery', 'gallery.js');
+        const outputFilePath: string = path.resolve(process.cwd(), 'gallery', 'gallery.js');
         // Ensure the directory exists
-        const dir = path.dirname(outputFilePath);
+        const dir: string = path.dirname(outputFilePath);
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
         // Write the JavaScript content to the specified file
-        fs.writeFile(outputFilePath, jsTemplate(), (err) => {
+        fs.writeFile(outputFilePath, jsTemplate(), (err: ?Error) => {
             if (err) {
                 console.error('Error writing JS file:', err);
                 reject(err);
@@ -115,7 +115,13 @@ const generateJsFile = async () => {
  * @param {number} width - Width of the thumbnail
  * @param {number} height - Height of the thumbnail
  */
-const createNewGallery = async (folderPath, galleryName, galleryTitle, width, height) => {
+const createNewGallery = async (
+    folderPath: string,
+    galleryName: string,
+    galleryTitle: string,
+    width: number,
+    height: number
+): Promise<void> => {
     try {
         await copyImagesFromFolder(folderPath);  // Waits for copy to finish
         await createThumbnails('imageIndex.json', width, height);  // Waits for thumbnail creation
