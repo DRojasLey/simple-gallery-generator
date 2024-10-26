@@ -1,4 +1,4 @@
-# Image Gallery Generator  v2.0.1
+# Image Gallery Generator  v2.0.2
 
 A JavaScript package to create a basic image gallery from a given folder.
 
@@ -177,7 +177,12 @@ image-gallery-generator/
 ├── package-lock.json
 ├── imageLibrary.json <<< Generated here by utility
 ├── .gitignore
-├── src/
+├── dist/
+|  ├── image_utils.js
+|  ├── data.js
+|  ├── gallery_generator.js
+|  └── cli.js
+└── src/
    ├── image_utils.js
    ├── data.js
    ├── gallery_generator.js
@@ -205,6 +210,13 @@ gallery/
 ## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests or issues.
+
+Please note that simple-gallery-gen uses Flow as typing solution, remember to add the build script when developing for the package:
+
+```bash
+"build": "flow-remove-types src/ -d dist/"
+```
+
 
 ## License
 

@@ -74,3 +74,7 @@
 
 ### v2.0.1
 * Corrected package.json trailing comma
+
+### v2.0.2
+* Added typing information to README file
+* Corrected project structure
