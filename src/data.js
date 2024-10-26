@@ -1,10 +1,15 @@
+// @flow
+
 /**
  * get gallery html template
  * @param {string} title - title for the title html element
- * @param {*} mainTitle - main title display in the top of the gallerty page
- * @returns html contents to add into a new gallery.html file
+ * @param {string} mainTitle - main title display in the top of the gallerty page
+ * @returns {string} html contents to add into a new gallery.html file
  */
-const htmlTemplate = (title, mainTitle) => {
+const htmlTemplate = (
+  title:string,
+  mainTitle: string
+): string => {
     return `
 <!DOCTYPE html>
 <html lang="en">
@@ -48,9 +53,11 @@ const htmlTemplate = (title, mainTitle) => {
 /**
  * get gallery css content
  * @param {number} thumbSize - thumbnail size selected during gallery creation
- * @returns - CSS template for the gallery
+ * @returns {string} - CSS template for the gallery
  */
-const cssTemplate = (thumbSize) => {
+const cssTemplate = (
+  thumbSize: number
+): string => {
     return `
     body {
   background-color: #1d1d1d;
@@ -159,9 +166,9 @@ ul {
 
 /**
  * get Js template for the gallery
- * @returns - javascript template for the gallery
+ * @returns {string} - javascript template for the gallery
  */
-const jsTemplate = () => `
+const jsTemplate = (): string => `
 // DOM declarations:
 
 const galleryBlock = document.getElementById('gallery');
