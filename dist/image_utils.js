@@ -1,4 +1,4 @@
-// @flow
+//      
 const { readdir, writeFile, readFileSync, existsSync, unlinkSync } = require('fs');
 const { extname, basename, join, resolve } = require('path');
 const path = require('path');
@@ -13,13 +13,13 @@ const sharp = require('sharp');
 * @param {boolean} absoluteFlag true=absolute path listed false=relative path
 */
 const listImagesFromFolder = (
-    folderPath: string,
-    absoluteFlag: boolean
-): void => {
+    folderPath        ,
+    absoluteFlag         
+)       => {
 
-    readdir(folderPath, (err: ?Error, files: Array<string>)=>{
+    readdir(folderPath, (err        , files               )=>{
         if (err) throw err;
-        const onlyImageFiles: Array<string> = files.filter(file =>{
+        const onlyImageFiles                = files.filter(file =>{
             const fileExtension = extname(file).toLowerCase();
             return fileExtension === '.jpg' || fileExtension === '.jpeg' || fileExtension === '.png' || fileExtension === '.bmp';
         });
@@ -38,7 +38,7 @@ const listImagesFromFolder = (
 * @param {string} listName name of the list to delete
 * @returns undefined
 */
-const deleteExistingList = (listName: string):void => {
+const deleteExistingList = (listName        )      => {
     const filePath = resolve(listName); // Resolve the path for safety (relative/absolute handling)
     if (!existsSync(filePath)) {
         console.log(`File ${listName} does not exist, nothing to delete.`);
@@ -56,9 +56,9 @@ const deleteExistingList = (listName: string):void => {
  * Copies the image files from the original location where they were listed into the gallery/images directory
  * @returns {Promise<void>}
  */
-const copyListedImages = async (): Promise<void> => {
-    const imageIndexPath: string = path.resolve(process.cwd(), 'imageIndex.json');
-    const destinationFolder: string = path.resolve(process.cwd(), 'gallery/images');
+const copyListedImages = async ()                => {
+    const imageIndexPath         = path.resolve(process.cwd(), 'imageIndex.json');
+    const destinationFolder         = path.resolve(process.cwd(), 'gallery/images');
 
     try {
         if (!fs.existsSync(imageIndexPath)) {  // Check if the file exists
@@ -72,12 +72,12 @@ const copyListedImages = async (): Promise<void> => {
             console.log(`Success creating the target directory \n`);
         }
 
-        const imagePaths: Array<string> = JSON.parse(fs.readFileSync(imageIndexPath, 'utf-8'));
+        const imagePaths                = JSON.parse(fs.readFileSync(imageIndexPath, 'utf-8'));
         console.log(`Starting the images copy operation: \n`);
 
         for (const imagePath of imagePaths) {
-            const fileName: string = path.basename(imagePath);
-            const destinationPath:string = path.join(destinationFolder, fileName);
+            const fileName         = path.basename(imagePath);
+            const destinationPath        = path.join(destinationFolder, fileName);
             await fs.promises.copyFile(imagePath, destinationPath);
             console.log(`Copied: ${fileName}`);
         }
@@ -93,7 +93,7 @@ const copyListedImages = async (): Promise<void> => {
  * @param {string} directoryPath - Path to the folder where the images are located
  * @returns {Promise<void>} - A promise that resolves when the images are copied successfully or rejects if an error occurs
  */
-const copyImagesFromFolder = async (directoryPath: string): Promise<void> => {
+const copyImagesFromFolder = async (directoryPath        )                => {
     return new Promise(async (resolve, reject) => {
         try {
             console.log(`Listing only images from folder: ${directoryPath}`);
@@ -123,12 +123,12 @@ const copyImagesFromFolder = async (directoryPath: string): Promise<void> => {
  * @returns {Promise<void>} - A promise that resolves when the thumbnails are created and the image library is saved
  */
 const createThumbnails = async (
-    imageListFile: string,
-    width: number,
-    height: number
-): Promise<void> => {
+    imageListFile        ,
+    width        ,
+    height        
+)                => {
     return new Promise(async (resolve, reject) => {
-        const destinationFolder: string = path.resolve(process.cwd(), 'gallery/images/thumbs');
+        const destinationFolder         = path.resolve(process.cwd(), 'gallery/images/thumbs');
 
         // Ensure the thumbnails folder exists
         if (!fs.existsSync(destinationFolder)) {
@@ -138,10 +138,10 @@ const createThumbnails = async (
         }
 
         // Read the list of image files from the provided JSON file
-        let images: Array<string>;
+        let images               ;
         
-        const readImageFile = (imgListFile: string): Array<string> => {
-            const data: string = fs.readFileSync(imgListFile, 'utf8');
+        const readImageFile = (imgListFile        )                => {
+            const data         = fs.readFileSync(imgListFile, 'utf8');
             try {
                 return JSON.parse(data);
             } catch (error) {
@@ -152,14 +152,14 @@ const createThumbnails = async (
         };
 
         images = readImageFile(imageListFile);
-        const imageLibrary: { [string]: { originalImg: string } } = {};
+        const imageLibrary                                        = {};
 
         // Create thumbnails for each image and update the image library
-        const createThumbnailImages = async (imageArray: Array<string>, width: number, height: number): Promise<void> => {
+        const createThumbnailImages = async (imageArray               , width        , height        )                => {
             for (const image of imageArray) {
-                const fileExtension: string = extname(image).toLowerCase();
-                const fileName: string = basename(image, fileExtension);
-                const thumbnailPath: string = `gallery/images/thumbs/thumb_${fileName}${fileExtension}`;
+                const fileExtension         = extname(image).toLowerCase();
+                const fileName         = basename(image, fileExtension);
+                const thumbnailPath         = `gallery/images/thumbs/thumb_${fileName}${fileExtension}`;
 
                 try {
                     await sharp(image)
@@ -171,8 +171,8 @@ const createThumbnails = async (
                         })
                         .toFile(thumbnailPath);
 
-                    const imageUpdated: string = path.join('images', path.basename(image));
-                    const updatedThumbnailPath: string = path.relative('gallery', thumbnailPath);
+                    const imageUpdated         = path.join('images', path.basename(image));
+                    const updatedThumbnailPath         = path.relative('gallery', thumbnailPath);
 
                     imageLibrary[updatedThumbnailPath] = {
                         originalImg: imageUpdated

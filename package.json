@@ -1,6 +1,6 @@
 {
   "name": "simple-gallery-gen",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Create simple HTML galleries generated from images in a folder, supporting jpg, png and bmp formats.",
   "main": "cli.js",
   "repository": {
@@ -9,11 +9,11 @@
   },
   "scripts": {
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
-    "createImageList": "node src/cli.js lsimages",
-    "copyImages": "node src/cli.js  copyImages ",
-    "createThumbnails": "node src/cli.js thumbcreate imageIndex.json",
-    "setFiles": "node src/cli.js set-files",
-    "setup": "node src/cli.js setup",
+    "createImageList": "node dist/cli.js lsimages",
+    "copyImages": "node dist/cli.js  copyImages ",
+    "createThumbnails": "node dist/cli.js thumbcreate imageIndex.json",
+    "setFiles": "node dist/cli.js set-files",
+    "setup": "node dist/cli.js setup",
     "build": "flow-remove-types src/ -d dist/"
   },
   "bin": {
@@ -47,6 +47,7 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
+    "@types/node": "^22.8.1",
     "flow-bin": "^0.250.0"
   }
 }
