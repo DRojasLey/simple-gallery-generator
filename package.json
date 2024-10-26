@@ -13,7 +13,8 @@
     "copyImages": "node src/cli.js  copyImages ",
     "createThumbnails": "node src/cli.js thumbcreate imageIndex.json",
     "setFiles": "node src/cli.js set-files",
-    "setup": "node src/cli.js setup"
+    "setup": "node src/cli.js setup",
+    "build": "flow-remove-types src/ -d dist/"
   },
   "bin": {
     "simple-gallery-gen": "./src/cli.js"
@@ -44,5 +45,8 @@
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
     "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.250.0"
   }
 }
