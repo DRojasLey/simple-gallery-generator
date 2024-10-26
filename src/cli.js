@@ -1,10 +1,20 @@
 #!/usr/bin/env node
+// @flow
 
 const { Command } = require('commander');
 const { copyImagesFromFolder, listImagesFromFolder, createThumbnails } = require('./image_utils.js');
 const { generateHtmlFile, generateCssFile, generateJsFile, createNewGallery } = require('./gallery_generator.js');
 
-const helpMessages = {
+type HelpMessages = {
+    programDescription: string,
+    copyImagesDescription: string,
+    lsimagesDescription: string,
+    thumbcreateDescription: string,
+    setFilesDescription: string,
+    setupDescription: string,
+};
+
+const helpMessages: HelpMessages = {
     programDescription: `Simple-gallery-gen, provides commands for a simple HTML based gallery from a given folder
 
     Example:
@@ -68,87 +78,108 @@ const helpMessages = {
     `
 }
 
+
+type Options = {
+    path?: string,
+    width?: number,
+    height?: number,
+    galleryName?: string,
+    galleryTitle?: string,
+    folderPath?: string
+};
+
 const program = new Command();
-let width = 0;
-let height= 250;
+let width: number = 0;
+let height: number = 250;
 
 program
-        .name('simple-gallery-gen')
-        .description(helpMessages.programDescription)
-        .version('1.0.3');
+    .name('simple-gallery-gen')
+    .description(helpMessages.programDescription)
+    .version('1.0.3');
 
 program
-        .command('copyImages')
-        .description(helpMessages.copyImagesDescription)
-        .option('-p, --path <folderPath>','Specify path of the folder to import images from')
-        .action((options) => {
-            const pathToFolder = options.path
+    .command('copyImages')
+    .description(helpMessages.copyImagesDescription)
+    .option('-p, --path <folderPath>', 'Specify path of the folder to import images from')
+    .action((options: Options) => {
+        const pathToFolder: string | void = options.path;
+        if (pathToFolder) {
             console.log(`Importing images from folder: ${pathToFolder}`);
             copyImagesFromFolder(pathToFolder);
-        });
+        } else {
+            console.error('Error: No folder path specified.');
+        }
+    });
 
 program
-        .command('lsimages')
-        .description(helpMessages.lsimagesDescription)
-        .option('-p, --path <folderPath>','Specify path of the folder to list images from', 'gallery/images')
-        .action((options) => {
-            const pathToImageFolder = options.path
-            console.log(`Listing images from folder: ${pathToImageFolder}`);
-            listImagesFromFolder(pathToImageFolder, false);
-        });
-
-
-program
-        .command('thumbcreate <filePath>')
-        .description(helpMessages.thumbcreateDescription)
-        .option('-w, --width <width>', 'Specify the thumbnail width', parseInt)
-        .option('-h, --height <height>', 'Specify the thumbnail height', parseInt)
-        .action((filePath, options) => {
-            width = options.width;
-            height = options.height;
-
-            if (!width || !height) {
-                console.error('Error: width and height must be specified.');
-                return;
-            }
-
-            console.log(`Processing images from file: ${filePath} with width: ${width} and height: ${height}`);
-            createThumbnails(filePath, width, height);
-        });
+    .command('lsimages')
+    .description(helpMessages.lsimagesDescription)
+    .option('-p, --path <folderPath>', 'Specify path of the folder to list images from', 'gallery/images')
+    .action((options: Options) => {
+        const pathToImageFolder: string = options.path || 'gallery/images';
+        console.log(`Listing images from folder: ${pathToImageFolder}`);
+        listImagesFromFolder(pathToImageFolder, false);
+    });
 
 program
-        .command('set-files')
-        .description(helpMessages.setFilesDescription)
-        .option('-n, --galleryName <galleryName>', 'Specify the name of the gallery, this will be printed as the main title')
-        .option('-t, --galleryTitle <galleryTitle>', 'Specify the title of the gallery, this is the title used in the title parameter of the site' )
-        .action((options) => {
-            const galleryName = options.galleryName;
-            const galleryTitle = options.galleryTitle;
+    .command('thumbcreate <filePath>')
+    .description(helpMessages.thumbcreateDescription)
+    .option('-w, --width <width>', 'Specify the thumbnail width', parseInt)
+    .option('-h, --height <height>', 'Specify the thumbnail height', parseInt)
+    .action((filePath: string, options: Options) => {
+        width = options.width || 0;
+        height = options.height || 0;
 
-            console.log('Processing File creation...')
+        if (!width || !height) {
+            console.error('Error: width and height must be specified.');
+            return;
+        }
+
+        console.log(`Processing images from file: ${filePath} with width: ${width} and height: ${height}`);
+        createThumbnails(filePath, width, height);
+    });
+
+program
+    .command('set-files')
+    .description(helpMessages.setFilesDescription)
+    .option('-n, --galleryName <galleryName>', 'Specify the name of the gallery, this will be printed as the main title')
+    .option('-t, --galleryTitle <galleryTitle>', 'Specify the title of the gallery, this is the title used in the title parameter of the site')
+    .action((options: Options) => {
+        const galleryName: string | void = options.galleryName;
+        const galleryTitle: string | void = options.galleryTitle;
+
+        console.log('Processing File creation...');
+        if (galleryName && galleryTitle) {
             generateHtmlFile('gallery/gallery.html', galleryName, galleryTitle);
             generateCssFile('gallery/style.css', width);
             generateJsFile();
-        });
+        } else {
+            console.error('Error: Gallery name and title must be specified.');
+        }
+    });
 
 program
-        .command('setup')
-        .description(helpMessages.setupDescription)
-        .option('-p, --folderPath <folderPath>', 'Specify the folder where you want to import the images from')
-        .option('-n, --galleryName <galleryName>', 'Specify the name of the gallery, this will be printed as the main title')
-        .option('-t, --galleryTitle <galleryTitle>', 'Specify the title of the gallery, this is the title used in the title parameter of the site' )
-        .option('-w, --width <width>', 'Specify the thumbnail width', parseInt)
-        .option('-h, --height <height>', 'Specify the thumbnail height', parseInt)
-        .action((options) => {
-            const galleryName = options.galleryName;
-            const galleryTitle = options.galleryTitle;
-            const folderPath = options.folderPath
-            width = options.width;
-            height = options.height;
-            console.log('Creating the Gallery....')
-            createNewGallery(folderPath, galleryName, galleryTitle, width, height)
+    .command('setup')
+    .description(helpMessages.setupDescription)
+    .option('-p, --folderPath <folderPath>', 'Specify the folder where you want to import the images from')
+    .option('-n, --galleryName <galleryName>', 'Specify the name of the gallery, this will be printed as the main title')
+    .option('-t, --galleryTitle <galleryTitle>', 'Specify the title of the gallery, this is the title used in the title parameter of the site')
+    .option('-w, --width <width>', 'Specify the thumbnail width', parseInt)
+    .option('-h, --height <height>', 'Specify the thumbnail height', parseInt)
+    .action((options: Options) => {
+        const galleryName: string | void = options.galleryName;
+        const galleryTitle: string | void = options.galleryTitle;
+        const folderPath: string | void = options.folderPath;
+        width = options.width || 0;
+        height = options.height || 0;
 
-        });
+        if (folderPath && galleryName && galleryTitle) {
+            console.log('Creating the Gallery....');
+            createNewGallery(folderPath, galleryName, galleryTitle, width, height);
+        } else {
+            console.error('Error: All options must be specified for setup.');
+        }
+    });
 
 
 program.parse(process.argv);
