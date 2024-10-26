@@ -1,5 +1,5 @@
 // @flow
-const { readdir, writeFile, readFileSync, existsSync, unlinkSync } = require('fs');
+const { readdir, writeFile, existsSync, unlinkSync } = require('fs');
 const { extname, basename, join, resolve } = require('path');
 const path = require('path');
 const fs = require('fs');
@@ -94,10 +94,10 @@ const copyListedImages = async (): Promise<void> => {
  * @returns {Promise<void>} - A promise that resolves when the images are copied successfully or rejects if an error occurs
  */
 const copyImagesFromFolder = async (directoryPath: string): Promise<void> => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         try {
             console.log(`Listing only images from folder: ${directoryPath}`);
-            await listImagesFromFolder(directoryPath, true);
+            listImagesFromFolder(directoryPath, true);
             setTimeout(() => {
                 copyListedImages()
                     .then(() => {
@@ -127,7 +127,7 @@ const createThumbnails = async (
     width: number,
     height: number
 ): Promise<void> => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         const destinationFolder: string = path.resolve(process.cwd(), 'gallery/images/thumbs');
 
         // Ensure the thumbnails folder exists
@@ -194,12 +194,13 @@ const createThumbnails = async (
             });
         };
 
-        await createThumbnailImages(images, width, height);
+        createThumbnailImages(images, width, height);
     });
 };
 
 module.exports = {
     listImagesFromFolder,
     createThumbnails,
-    copyImagesFromFolder
+    copyImagesFromFolder,
+    deleteExistingList
 };
