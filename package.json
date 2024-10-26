@@ -14,7 +14,8 @@
     "createThumbnails": "node dist/cli.js thumbcreate imageIndex.json",
     "setFiles": "node dist/cli.js set-files",
     "setup": "node dist/cli.js setup",
-    "build": "flow-remove-types src/ -d dist/"
+    "build": "flow-remove-types src/ --pretty --all -d dist/",
+    "lint": "standard dist/ --fix"
   },
   "bin": {
     "simple-gallery-gen": "./dist/cli.js"

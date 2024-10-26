@@ -1,4 +1,4 @@
-//      
+//
 
 /**
  * get gallery html template
@@ -7,10 +7,10 @@
  * @returns {string} html contents to add into a new gallery.html file
  */
 const htmlTemplate = (
-  title       ,
-  mainTitle        
-)         => {
-    return `
+  title,
+  mainTitle
+) => {
+  return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +48,7 @@ const htmlTemplate = (
 </body>
 </html>
 `
-};
+}
 
 /**
  * get gallery css content
@@ -56,9 +56,9 @@ const htmlTemplate = (
  * @returns {string} - CSS template for the gallery
  */
 const cssTemplate = (
-  thumbSize        
-)         => {
-    return `
+  thumbSize
+) => {
+  return `
     body {
   background-color: #1d1d1d;
 }
@@ -168,7 +168,7 @@ ul {
  * get Js template for the gallery
  * @returns {string} - javascript template for the gallery
  */
-const jsTemplate = ()         => `
+const jsTemplate = () => `
 // DOM declarations:
 
 const galleryBlock = document.getElementById('gallery');
@@ -234,10 +234,10 @@ window.addEventListener('load', () => {
         createNewImage(data);
     });
 });
-`;
+`
 
 module.exports = {
-    htmlTemplate,
-    cssTemplate,
-    jsTemplate
- };
+  htmlTemplate,
+  cssTemplate,
+  jsTemplate
+}

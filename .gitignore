@@ -1,8 +1,10 @@
 # Ignore the images folder inside the gallery folder
-gallery/images/
+gallery
 
 # Ignore the imageIndex.json file inside the gallery folder
 imageIndex.json
 
 # Ignore the imageLibrary.json file
 imageLibrary.json
+
+.standardignore
