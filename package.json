@@ -1,8 +1,8 @@
 {
   "name": "simple-gallery-gen",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Create simple HTML galleries generated from images in a folder, supporting jpg, png and bmp formats.",
-  "main": "cli.js",
+  "main": "dist/cli.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/DRojasLey/simple-gallery-generator/"
@@ -17,15 +17,15 @@
     "build": "flow-remove-types src/ -d dist/"
   },
   "bin": {
-    "simple-gallery-gen": "./src/cli.js"
+    "simple-gallery-gen": "./dist/cli.js"
   },
   "files": [
+    "dist",
     "src",
     "gallery",
     "image_utils.js",
     "cli.js",
-    "gallery_generator.js",
-    "main.js"
+    "gallery_generator.js"
   ],
   "keywords": [
     "gallery",

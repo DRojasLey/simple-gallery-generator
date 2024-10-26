@@ -1,30 +1,30 @@
-## Changelog
+# Changelog
 
-### v0.1.0:
+## v0.1.0:
 * Project init
 * Image folder list feature added
 
-### v0.2.0:
+## v0.2.0:
 * Create Thumbnails feature added
 * Semver introduced
 * Documentation improvements
 * Image Folder List now accepts folder path as argument
 
-##### v0.2.1:
+#### v0.2.1:
 * Documentation improvements
 * Changelog introduced
 
-##### v0.2.2:
+#### v0.2.2:
 * Added imageLibrary.json file generation
 * Minor bugfixes
 * Clarified documentation
 
-##### v0.2.3:
+#### v0.2.3:
 * Added image copying function
 * Thumbnail creation now creates thumbs if it doesn't exists
 * minor style and spacing fixes
 
-### v0.3.0:
+## v0.3.0:
 * Images copying and import created
 * Basic HTML, CSS and JS templates for the gallery created
 * Fixed bugs:
@@ -33,7 +33,7 @@
 * File index.html renamed to gallery.html to better reflect the package functionality
 * Removed delete imageIndex.json call from the copying images function, to avoid conflicts
 
-### v0.4.0:
+## v0.4.0:
 * Feature to add the web files added
 * Commands added
 * New data.js file added
@@ -72,3 +72,5 @@
 * Changelog added
 * Types introduced, using Flow
 
+### v2.0.1
+* Corrected package.json trailing comma
