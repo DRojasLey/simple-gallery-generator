@@ -8,7 +8,7 @@
     "url": "https://github.com/DRojasLey/simple-gallery-generator/"
   },
   "scripts": {
-    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
+    "test": "jest",
     "createImageList": "node dist/cli.js lsimages",
     "copyImages": "node dist/cli.js  copyImages ",
     "createThumbnails": "node dist/cli.js thumbcreate imageIndex.json",
@@ -48,7 +48,12 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-flow": "^7.25.9",
     "@types/node": "^22.8.1",
-    "flow-bin": "^0.250.0"
+    "babel-jest": "^29.7.0",
+    "flow-bin": "^0.250.0",
+    "jest": "^29.7.0"
   }
 }

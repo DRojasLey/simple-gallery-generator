@@ -1,12 +1,12 @@
-//
+// 
 // this file is to add the html, css and base js files generation code
 // the functions in here are to be called from the terminal using the cli.js commander program
 
-const { htmlTemplate, cssTemplate, jsTemplate } = require('./data.js')
-const { copyImagesFromFolder, createThumbnails } = require('./image_utils.js')
+const { htmlTemplate, cssTemplate, jsTemplate } = require('./data.js');
+const { copyImagesFromFolder, createThumbnails } = require('./image_utils.js');
 
-const path = require('path')
-const fs = require('fs')
+const path = require('path');
+const fs = require('fs');
 
 /**
  * Creates an HTML file for the gallery.
@@ -21,26 +21,28 @@ const generateHtmlFile = async (
   mainTitle = 'Gallery'
 ) => {
   return new Promise((resolve, reject) => {
-    const dir = path.dirname(filePath)
-
+    const dir = path.dirname(filePath);
+    
     // Ensure the directory exists
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
+      fs.mkdirSync(dir, { recursive: true });
     }
 
-    const htmlContent = htmlTemplate(title, mainTitle)
-
+    const htmlContent = htmlTemplate(title, mainTitle);
+    
     // Write the HTML file
     fs.writeFile(filePath, htmlContent, (err) => {
       if (err) {
-        reject(err) // Reject the promise if there is an error
-        return
+        reject(err); // Reject the promise if there is an error
+        return;
       }
-      console.log(`HTML file created at: ${filePath}`)
-      resolve() // Resolve the promise after the file is successfully written
-    })
-  })
-}
+      console.log(`HTML file created at: ${filePath}`);
+      resolve(); // Resolve the promise after the file is successfully written
+    });
+  });
+};
+
+
 
 // Call it by: generateHtmlFile('gallery/gallery.html', 'My Image Gallery', 'Random Gallery Tittle');
 
@@ -51,27 +53,29 @@ const generateHtmlFile = async (
  * @returns {Promise} - A promise that resolves when the CSS file is successfully created, or rejects if an error occurs
  */
 const generateCssFile = async (
-  filePath,
-  thumbSize = 250
+    filePath,
+    thumbSize = 250
 ) => {
-  return new Promise((resolve, reject) => {
-    const cssContent = cssTemplate(thumbSize)
-    // Ensure the directory exists
-    const dir = path.dirname(filePath)
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
-    }
-    // Write the CSS content to the specified file
-    fs.writeFile(filePath, cssContent, (err) => {
-      if (err) {
-        reject(err) // Reject the promise if there's an error
-        return
-      };
-      console.log(`CSS file created at: ${filePath}`)
-      resolve() // Resolve when file creation is successful
-    })
-  })
-}
+
+    return new Promise((resolve, reject) => {
+
+        const cssContent = cssTemplate(thumbSize);
+        // Ensure the directory exists
+        const dir = path.dirname(filePath);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        // Write the CSS content to the specified file
+        fs.writeFile(filePath, cssContent, (err) => {
+            if (err) {
+                reject(err); // Reject the promise if there's an error
+                return
+            };
+            console.log(`CSS file created at: ${filePath}`);
+            resolve(); // Resolve when file creation is successful
+        });
+    });
+};
 
 // Call it by: generateCssFile('gallery/style.css', 250);
 
@@ -80,25 +84,26 @@ const generateCssFile = async (
  * @returns {Promise} - A promise that resolves when the JS file is successfully created, or rejects if an error occurs
  */
 const generateJsFile = async () => {
-  return new Promise((resolve, reject) => {
-    const outputFilePath = path.resolve(process.cwd(), 'gallery', 'gallery.js')
-    // Ensure the directory exists
-    const dir = path.dirname(outputFilePath)
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
-    }
-    // Write the JavaScript content to the specified file
-    fs.writeFile(outputFilePath, jsTemplate(), (err) => {
-      if (err) {
-        console.error('Error writing JS file:', err)
-        reject(err)
-      } else {
-        console.log(`JavaScript file created at: ${outputFilePath}`)
-        resolve()
-      }
-    })
-  })
-}
+    return new Promise((resolve, reject) => {
+        const outputFilePath = path.resolve(process.cwd(), 'gallery', 'gallery.js');
+        // Ensure the directory exists
+        const dir = path.dirname(outputFilePath);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        // Write the JavaScript content to the specified file
+        fs.writeFile(outputFilePath, jsTemplate(), (err) => {
+            if (err) {
+                console.error('Error writing JS file:', err);
+                reject(err);
+                return;
+            } else {
+                console.log(`JavaScript file created at: ${outputFilePath}`);
+                resolve();
+            }
+        });
+    });
+};
 
 // Call it by: generateJsFile();
 
@@ -111,27 +116,27 @@ const generateJsFile = async () => {
  * @param {number} height - Height of the thumbnail
  */
 const createNewGallery = async (
-  folderPath,
-  galleryName,
-  galleryTitle,
-  width,
-  height
+    folderPath,
+    galleryName,
+    galleryTitle,
+    width,
+    height
 ) => {
-  try {
-    await copyImagesFromFolder(folderPath) // Waits for copy to finish
-    await createThumbnails('imageIndex.json', width, height) // Waits for thumbnail creation
-    await generateHtmlFile('gallery/gallery.html', galleryName, galleryTitle) // Waits for HTML generation
-    await generateCssFile('gallery/style.css', width) // Waits for CSS generation
-    await generateJsFile() // Waits for JS generation
-    console.log('Gallery creation process complete!'.toUpperCase())
-  } catch (error) {
-    console.error('Error occurred during gallery creation:', error)
-  }
-}
+    try {
+        await copyImagesFromFolder(folderPath);  // Waits for copy to finish
+        await createThumbnails('imageIndex.json', width, height);  // Waits for thumbnail creation
+        await generateHtmlFile('gallery/gallery.html', galleryName, galleryTitle);  // Waits for HTML generation
+        await generateCssFile('gallery/style.css', width);  // Waits for CSS generation
+        await generateJsFile();  // Waits for JS generation
+        console.log('Gallery creation process complete!'.toUpperCase());
+    } catch (error) {
+        console.error('Error occurred during gallery creation:', error);
+    }
+};
 
 module.exports = {
-  generateHtmlFile,
-  generateCssFile,
-  generateJsFile,
-  createNewGallery
-}
+    generateHtmlFile,
+    generateCssFile,
+    generateJsFile,
+    createNewGallery
+};

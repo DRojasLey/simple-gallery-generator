@@ -1,4 +1,4 @@
-//
+// 
 
 /**
  * get gallery html template
@@ -10,7 +10,7 @@ const htmlTemplate = (
   title,
   mainTitle
 ) => {
-  return `
+    return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +48,7 @@ const htmlTemplate = (
 </body>
 </html>
 `
-}
+};
 
 /**
  * get gallery css content
@@ -58,7 +58,7 @@ const htmlTemplate = (
 const cssTemplate = (
   thumbSize
 ) => {
-  return `
+    return `
     body {
   background-color: #1d1d1d;
 }
@@ -234,10 +234,10 @@ window.addEventListener('load', () => {
         createNewImage(data);
     });
 });
-`
+`;
 
 module.exports = {
-  htmlTemplate,
-  cssTemplate,
-  jsTemplate
-}
+    htmlTemplate,
+    cssTemplate,
+    jsTemplate
+ };
