@@ -1,7 +1,7 @@
 const fs = require('fs');
 const sharp = require('sharp');
 const path = require('path');
-const { optimizeImage } = require('../code_utils'); // Adjust the path as needed
+const { optimizeImage } = require('../code_utils.js'); // Adjust the path as needed
 
 jest.mock('fs');
 jest.mock('sharp');
